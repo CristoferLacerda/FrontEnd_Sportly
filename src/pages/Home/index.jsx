@@ -1,7 +1,15 @@
 import React from "react";
 import "./style.css";
 import { useNavigate } from 'react-router-dom';
-import logoSporlty from '../../assets/logo_sportly.png'
+
+import logoSporlty from '../../assets/logo_sportly.png';
+import imgBasqueteSlider from '../../assets/basquete_slider_esportes.png';
+import imgTenisSlider from '../../assets/tenis_slider_esportes.png';
+import imgVoleiSlider from '../../assets/volei_slider_esportes.png';
+import imgHandebolSlider from '../../assets/handebol_slider_esportes.png';
+import imgFutsalSlider from '../../assets/futsal_slider_esportes.png';
+import imgBadmintonSlider from '../../assets/badminton_slider_esportes.png';
+import imgBasquete3x3Slider from '../../assets/basquete3x3_slider_esportes.png';
 
 // Atenção: precisa ter o Swiper instalado e importado
 // npm install swiper
@@ -73,36 +81,37 @@ function irParaRegister() {
             loop={true}
             className="esportesSwiper"
           >
+
             <SwiperSlide>
 
               <div className="esportes-grid">
 
                 <div className="esporte-card">
                   <div className="esporte-imagem">
-                    <img src="https://placehold.co/300x300" alt="Basquete" />
+                    <img src={imgBasqueteSlider} alt="Basquete" />
                   </div>
                   <h3 className="esporte-nome">Basquete</h3>
                 </div>
 
                 <div className="esporte-card">
                   <div className="esporte-imagem">
-                    <img src="https://placehold.co/300x300" alt="Basquete" />
+                    <img src={imgTenisSlider} alt="Tênis" />
                   </div>
-                  <h3 className="esporte-nome">Basquete</h3>
+                  <h3 className="esporte-nome">Tênis</h3>
                 </div>
 
                 <div className="esporte-card">
                   <div className="esporte-imagem">
-                    <img src="https://placehold.co/300x300" alt="Basquete" />
-                  </div>
-                  <h3 className="esporte-nome">Basquete</h3>
-                </div>
-
-                <div className="esporte-card">
-                  <div className="esporte-imagem">
-                    <img src="https://placehold.co/300x300" alt="Vôlei" />
+                    <img src={imgVoleiSlider} alt="Vôlei" />
                   </div>
                   <h3 className="esporte-nome">Vôlei</h3>
+                </div>
+
+                <div className="esporte-card">
+                  <div className="esporte-imagem">
+                    <img src={imgHandebolSlider} alt="Handebol" />
+                  </div>
+                  <h3 className="esporte-nome">Handebol</h3>
                 </div>
 
               </div>
@@ -114,23 +123,23 @@ function irParaRegister() {
 
                 <div className="esporte-card">
                   <div className="esporte-imagem">
-                    <img src="https://placehold.co/300x300" alt="Basquete" />
+                    <img src={imgFutsalSlider} alt="Futsal" />
                   </div>
-                  <h3 className="esporte-nome">Basquete</h3>
+                  <h3 className="esporte-nome">Futsal</h3>
                 </div>
 
                 <div className="esporte-card">
                   <div className="esporte-imagem">
-                    <img src="https://placehold.co/300x300" alt="Basquete" />
+                    <img src={imgBadmintonSlider} alt="Badminton" />
                   </div>
-                  <h3 className="esporte-nome">Basquete</h3>
+                  <h3 className="esporte-nome">Badminton</h3>
                 </div>
 
                 <div className="esporte-card">
                   <div className="esporte-imagem">
-                    <img src="https://placehold.co/300x300" alt="Basquete" />
+                    <img src={imgBasquete3x3Slider} alt="Basquete3x3" />
                   </div>
-                  <h3 className="esporte-nome">Basquete</h3>
+                  <h3 className="esporte-nome">Basquete 3x3</h3>
                 </div>
 
                 <div className="esporte-card">
@@ -152,6 +161,7 @@ function irParaRegister() {
             modules={[Navigation, Pagination]}
             navigation
             pagination={{ clickable: true }}
+            loop={true}
             className="mySwiper"
           >
             <SwiperSlide>
