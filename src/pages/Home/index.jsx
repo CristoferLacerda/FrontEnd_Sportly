@@ -1,193 +1,695 @@
-import { useEffect, useState, useRef } from 'react'
-import './style.css'
-import lixeira from '../../assets/imgLixeira.png.webp'
-import api from '../../services/api'
+import React from "react";
+import "./style.css";
+import { useNavigate } from 'react-router-dom';
+import logoSporlty from '../../assets/logo_sportly.png'
 
-function maskTelefone(value) {
-  return value
-    .replace(/\D/g, "") // só números
-    .replace(/^(\d{2})(\d)/, "($1) $2") // DDD
-    .replace(/(\d{5})(\d)/, "$1-$2") // traço
-    .slice(0, 15) // limita
+// Atenção: precisa ter o Swiper instalado e importado
+// npm install swiper
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+export default function Home() {
+    
+const navigate = useNavigate();
+
+function irParaRegister() {
+    navigate('/register');
 }
-
-function maskCpf(value) {
-  return value
-    .replace(/\D/g, "") // só números
-    .replace(/(\d{3})(\d)/, "$1.$2")
-    .replace(/(\d{3})(\d)/, "$1.$2")
-    .replace(/(\d{3})(\d{1,2})$/, "$1-$2")
-    .slice(0, 14)
-}
-
-function handleTelefone(e) {
-    e.target.value = maskTelefone(e.target.value)
-}
-
-function handleCpf(e) {
-    e.target.value = maskCpf(e.target.value)
-}
-
-function cleanNumber(value) {
-  return value.replace(/\D/g, ""); // remove tudo que não é número
-}
-
-function Home() {
-
-const [users, setUsers] = useState([])
-
-const inputNome = useRef()
-const inputEmail = useRef()
-const inputTelefone = useRef()
-const inputCpf = useRef()
-const inputSenha = useRef()
-const inputConfirmSenha = useRef();
-
-
-async function getUsers(){
-  const usersFromApi = await api.get('/usuarios')
-
-  setUsers(usersFromApi.data)
-  
-}
-
-
-async function postUsers(){
-
-    if (
-    !inputNome.current.value ||
-    !inputEmail.current.value ||
-    !inputTelefone.current.value ||
-    !inputCpf.current.value ||
-    !inputSenha.current.value
-  ) {
-    alert("Preencha todos os campos antes de cadastrar!")
-    return
-  }
-
-if (inputSenha.current.value !== inputConfirmSenha.current.value) {
-    alert("As senhas não coincidem!");
-    return;
-}
-
-
-   await api.post('/usuarios', {
-    nome: inputNome.current.value,
-    email: inputEmail.current.value,
-    telefone: cleanNumber(inputTelefone.current.value),
-    cpf: cleanNumber(inputCpf.current.value),
-    senha: inputSenha.current.value
-   })
-
-  getUsers()
-
-  inputNome.current.value = ""
-  inputEmail.current.value = ""
-  inputTelefone.current.value = ""
-  inputCpf.current.value = ""
-  inputSenha.current.value = ""
-  inputConfirmSenha.current.value = ""
-}
-
-
-async function deleteUsers(id_cliente){
-  await api.delete(`/usuarios/${id_cliente}`)
-
-  getUsers()
-
-}
-
-useEffect (() =>{
-
-  getUsers()
-
-}, [])
-
-
 
   return (
-    
-      <div className="paginaCadastro">
-
-        <div className='vazio'></div>
-
-        <main id="form_container">
-            <div id="form_header">
-              <h1 id="form_title">Cadastre-se</h1>
-              <button className="btn-default" id="botaoVoltar">
-                <i className="fa-solid fa-right-to-bracket"></i>
-              </button>
-            </div>
-            <form id="form">
-              <div id="input_container">
-
-                <div className="input-box">
-                  <div className="input-field">
-                    <input type="text" name="nome" id="name" className="form-control" ref={inputNome} placeholder='Nome'/>
-                    <i className="fa-regular fa-user"></i>
-                  </div>
-                </div>
-
-                <div className="input-box">
-                  <div className="input-field">
-                    <input type="email" name="email" id="email" className="form-control" ref={inputEmail} placeholder='Email'/>
-                    <i className="fa-regular fa-envelope"></i>
-                  </div>
-                </div>
-
-                <div className="input-box">
-                  <div className="input-field">
-                    <input type="tel" name="telefone" id="telefone" className="form-control" ref={inputTelefone} onInput={handleTelefone} placeholder='Telefone'/>
-                  </div>
-                </div>
-
-                <div className="input-box">
-                  <div className="input-field">
-                    <input type="text" name="cpf" id="cpf" className="form-control" ref={inputCpf} onInput={handleCpf} placeholder='CPF'/>
-                  </div>
-                </div>
-
-                <div className="input-box">
-                  <div className="input-field">
-                    <input type="password" name="password" id="password" className="form-control" placeholder='Senha' ref={inputSenha}/>
-                    <i className="fa-regular fa-eye-slash password-icon"></i>
-                  </div>
-                </div>
-
-                <div className="input-box">
-                  <div className="input-field">
-                    <input type="password" name="confirm_password" id="confirm_password" className="form-control" placeholder='Repita a senha' ref={inputConfirmSenha}/>
-                    <i className="fa-regular fa-eye-slash password-icon"></i>
-                  </div>
-                </div>
-              </div>
-              <button type="button" className="btn-default" id="botaoCadastrar" onClick={postUsers}>Finalizar Cadastro</button>
-            </form>
-        </main>
-
-        <div className="card_info_users">
-
-        { users.map( (user) => (
-          <div className='info_user'>
-            <div key={user.id_cliente}>
-              <p><span className='font_bold'>Nome:</span> {user.nome}</p>
-              <p><span className='font_bold'>Email:</span> {user.email}</p>
-              <p><span className='font_bold'>Telefone:</span> {user.telefone}</p>
-              <p><span className='font_bold'>CPF:</span> {user.cpf}</p>
-            </div>
-            <button onClick={() => deleteUsers(user.id_cliente)} className='btn_apagar_user'>
-              <img src={lixeira} alt="Lixeira"/>
-            </button>
-          </div>
-        ))}
-
+    <div>
+      <header className="cabecalho">
+        <div className="logo-area">
+          <a href="#">
+            <img src={logoSporlty} alt="Sportly logo" />
+          </a>
         </div>
 
+        <div className="barra-pesquisa">
+          <input type="text" placeholder="Busque por Sports" />
+          <button>
+            <i className="fas fa-search"></i>
+          </button>
+        </div>
+
+        <nav className="navegacao">
+          <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">CATEGORIAS</a></li>
+            <li><a href="#">NUTRIÇÃO</a></li>
+            <li><a href="#">PROGRESSO</a></li>
+            <li><a href="#">SUPORTE</a></li>
+          </ul>
+        </nav>
+
+        <div className="botoes-auth">
+          <i className="carrinho fas fa-shopping-cart"></i>
+          <button className="btn-login"><p>Entrar</p></button>
+
+          <button onClick={irParaRegister} className="btn-register">Registrar</button>
+
+        </div>
+      </header>
+
+      <main>
+        {/* Slider Esportes */}
+        <div className="esportes-container">
+          <h1 className="titulo-categoria">ESPORTES DE QUADRA</h1>
+          <div className="categoria-tabs">
+            <button className="tab-btn active" data-category="quadra">Esportes de Quadra</button>
+            <button className="tab-btn" data-category="areia">Esportes de Areia</button>
+            <button className="tab-btn" data-category="agua">Esportes Aquáticos</button>
+            <button className="tab-btn" data-category="radicais">Esportes Radicais</button>
+            <button className="tab-btn" data-category="inverno">Esportes de Inverno</button>
+          </div>
+
+          <Swiper
+            modules={[Navigation, Pagination]}
+            navigation={true}
+            pagination={{ clickable: true }}
+            loop={true}
+            className="esportesSwiper"
+          >
+            <SwiperSlide>
+
+              <div className="esportes-grid">
+
+                <div className="esporte-card">
+                  <div className="esporte-imagem">
+                    <img src="https://placehold.co/300x300" alt="Basquete" />
+                  </div>
+                  <h3 className="esporte-nome">Basquete</h3>
+                </div>
+
+                <div className="esporte-card">
+                  <div className="esporte-imagem">
+                    <img src="https://placehold.co/300x300" alt="Basquete" />
+                  </div>
+                  <h3 className="esporte-nome">Basquete</h3>
+                </div>
+
+                <div className="esporte-card">
+                  <div className="esporte-imagem">
+                    <img src="https://placehold.co/300x300" alt="Basquete" />
+                  </div>
+                  <h3 className="esporte-nome">Basquete</h3>
+                </div>
+
+                <div className="esporte-card">
+                  <div className="esporte-imagem">
+                    <img src="https://placehold.co/300x300" alt="Vôlei" />
+                  </div>
+                  <h3 className="esporte-nome">Vôlei</h3>
+                </div>
+
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide>
+
+              <div className="esportes-grid">
+
+                <div className="esporte-card">
+                  <div className="esporte-imagem">
+                    <img src="https://placehold.co/300x300" alt="Basquete" />
+                  </div>
+                  <h3 className="esporte-nome">Basquete</h3>
+                </div>
+
+                <div className="esporte-card">
+                  <div className="esporte-imagem">
+                    <img src="https://placehold.co/300x300" alt="Basquete" />
+                  </div>
+                  <h3 className="esporte-nome">Basquete</h3>
+                </div>
+
+                <div className="esporte-card">
+                  <div className="esporte-imagem">
+                    <img src="https://placehold.co/300x300" alt="Basquete" />
+                  </div>
+                  <h3 className="esporte-nome">Basquete</h3>
+                </div>
+
+                <div className="esporte-card">
+                  <div className="esporte-imagem">
+                    <img src="https://placehold.co/300x300" alt="Vôlei" />
+                  </div>
+                  <h3 className="esporte-nome">Vôlei</h3>
+                </div>
+
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+
+        {/* Slider Produtos */}
+        <h1 className="titulo-loja">Loja de Equipamentos</h1>
+        <div className="produtos-container">
+          <Swiper
+            modules={[Navigation, Pagination]}
+            navigation
+            pagination={{ clickable: true }}
+            className="mySwiper"
+          >
+            <SwiperSlide>
+
+              <div className="card-container">
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Monitor Gamer Curvo</h3>
+                    <p className="produto-preco">R$ 1.899,99</p>
+                    <p className="produto-parcela">10x de R$ 211,11 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide>
+
+              <div className="card-container">
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Monitor Gamer Curvo</h3>
+                    <p className="produto-preco">R$ 1.899,99</p>
+                    <p className="produto-parcela">10x de R$ 211,11 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide>
+
+              <div className="card-container">
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Monitor Gamer Curvo</h3>
+                    <p className="produto-preco">R$ 1.899,99</p>
+                    <p className="produto-parcela">10x de R$ 211,11 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide>
+
+              <div className="card-container">
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Monitor Gamer Curvo</h3>
+                    <p className="produto-preco">R$ 1.899,99</p>
+                    <p className="produto-parcela">10x de R$ 211,11 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+
+        <h1 className="titulo-loja">Produtos Esportivos</h1>
+        <div className="produtos-container">
+          <Swiper
+            modules={[Navigation, Pagination]}
+            navigation
+            pagination={{ clickable: true }}
+            className="mySwiper"
+          >
+            <SwiperSlide>
+
+              <div className="card-container">
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Monitor Gamer Curvo</h3>
+                    <p className="produto-preco">R$ 1.899,99</p>
+                    <p className="produto-parcela">10x de R$ 211,11 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+
+        <h1 className="titulo-loja">Suplementos</h1>
+        <div className="produtos-container">
+          <Swiper
+            modules={[Navigation, Pagination]}
+            navigation
+            pagination={{ clickable: true }}
+            className="mySwiper"
+          >
+            <SwiperSlide>
+
+              <div className="card-container">
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Monitor Gamer Curvo</h3>
+                    <p className="produto-preco">R$ 1.899,99</p>
+                    <p className="produto-parcela">10x de R$ 211,11 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+
+        <h1 className="titulo-loja">Acessórios</h1>
+        <div className="produtos-container">
+          <Swiper
+            modules={[Navigation, Pagination]}
+            navigation
+            pagination={{ clickable: true }}
+            className="mySwiper"
+          >
+            <SwiperSlide>
+
+              <div className="card-container">
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Console PlayStation 5 Slim</h3>
+                    <p className="produto-preco">R$ 3.533,07</p>
+                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src="https://placehold.co/300x300" alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Monitor Gamer Curvo</h3>
+                    <p className="produto-preco">R$ 1.899,99</p>
+                    <p className="produto-parcela">10x de R$ 211,11 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+
+         <footer>
+      <div className="footer-container">
+        <div className="footer-section">
+          <h3>Sobre Nós</h3>
+          <p>
+            Somos a Sportly, sua loja de esportes com os melhores produtos e
+            equipamentos para várias modalidades.
+          </p>
+        </div>
+
+        <div className="footer-section">
+          <h3>Links Úteis</h3>
+          <a href="#">Início</a><br />
+          <a href="#">Categorias</a><br />
+          <a href="#">Esportes</a><br />
+          <a href="#">Contato</a>
+        </div>
+
+        <div className="footer-section">
+          <h3>Redes Sociais</h3>
+          <div className="social-icons">
+            <a href="#"><i className="fab fa-facebook"></i></a>
+            <a href="#"><i className="fab fa-instagram"></i></a>
+            <a href="#"><i className="fab fa-twitter"></i></a>
+            <a href="#"><i className="fab fa-youtube"></i></a>
+          </div>
+        </div>
       </div>
 
+      <div className="footer-bottom">
+        &copy; {new Date().getFullYear()} Sportly - Todos os direitos reservados.
+      </div>
+    </footer>
 
-
-  )
+      </main>
+    </div>
+  );
 }
-
-export default Home
