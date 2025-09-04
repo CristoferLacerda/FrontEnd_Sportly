@@ -1,7 +1,10 @@
+<title>Sportly</title>
+
 import React from "react";
 import "./style.css";
 import { useNavigate } from 'react-router-dom';
 import * as Images from '../../assets';
+
 
 // import logoSporlty from '../../assets/logo_sportly.png';
 // import imgBasqueteSlider from '../../assets/basquete_slider_esportes.png';
@@ -38,7 +41,7 @@ function irParaRegister() {
         </div>
 
         <div className="barra-pesquisa">
-          <input type="text" placeholder="Busque por Sports" />
+          <input type="text" placeholder="Busque por Esportes" />
           <button>
             <i className="fas fa-search"></i>
           </button>
@@ -55,7 +58,9 @@ function irParaRegister() {
         </nav>
 
         <div className="botoes-auth">
-          <i className="carrinho fas fa-shopping-cart"></i>
+
+          <i class="bi bi-cart3 botaoCarrinho"></i>
+
           <button className="btn-login"><p>Entrar</p></button>
 
           <button onClick={irParaRegister} className="btn-register">Registrar</button>
@@ -668,31 +673,33 @@ function irParaRegister() {
 
          <footer>
       <div className="footer-container">
+        
         <div className="footer-section">
-          <h3>Sobre Nós</h3>
+          <h3>Sportly</h3>
           <p>
-            Somos a Sportly, sua loja de esportes com os melhores produtos e
-            equipamentos para várias modalidades.
+            Tecnologia, preço baixo e confiança.
           </p>
         </div>
 
         <div className="footer-section">
-          <h3>Links Úteis</h3>
-          <a href="#">Início</a><br />
-          <a href="#">Categorias</a><br />
-          <a href="#">Esportes</a><br />
-          <a href="#">Contato</a>
+          <h3>Redes Sociais</h3>
+
+          <div class="social-icons">
+              <a href="#" target="_blank"><i class="bi bi-facebook iconesRedes"></i></a>
+              <a href="#" target="_blank"><i class="bi bi-instagram iconesRedes"></i></a>
+              <a href="#" target="_blank"><i class="bi bi-youtube iconesRedes"></i></a>
+              <a href="#" target="_blank"><i class="bi bi-tiktok iconesRedes"></i></a>
+          </div>
         </div>
 
         <div className="footer-section">
-          <h3>Redes Sociais</h3>
-          <div className="social-icons">
-            <a href="#"><i className="fab fa-facebook"></i></a>
-            <a href="#"><i className="fab fa-instagram"></i></a>
-            <a href="#"><i className="fab fa-twitter"></i></a>
-            <a href="#"><i className="fab fa-youtube"></i></a>
-          </div>
+          <h3>Atendimento</h3>
+          <a href="#">Fale Conosco</a><br />
+          <a href="#">Política de Privacidade</a><br />
+          <a href="#">SUPORTE 24 HORAS</a><br />
         </div>
+
+
       </div>
 
       <div className="footer-bottom">

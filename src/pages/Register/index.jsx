@@ -1,7 +1,12 @@
 import { useEffect, useState, useRef } from 'react'
 import './style.css'
-import lixeira from '../../assets/imgLixeira.png.webp'
+import lixeira from '../../assets/icones/imgLixeira.png.webp'
 import api from '../../services/api'
+import { Link } from "react-router-dom";
+
+function voltarParaHome() {
+    navigate("/"); // Volta para a página principal
+}
 
 function maskTelefone(value) {
   return value
@@ -114,9 +119,9 @@ useEffect (() =>{
         <main id="form_container">
             <div id="form_header">
               <h1 id="form_title">Cadastre-se</h1>
-              <button className="btn-default" id="botaoVoltar">
-                <i className="fa-solid fa-right-to-bracket"></i>
-              </button>
+              <Link to="/" className="btn-default" id="botaoVoltar">
+                <i class="bi bi-arrow-bar-left"></i>
+              </Link>
             </div>
             <form id="form">
               <div id="input_container">
@@ -190,4 +195,4 @@ useEffect (() =>{
   )
 }
 
-export default Register
+export default Register;

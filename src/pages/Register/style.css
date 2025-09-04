@@ -16,6 +16,11 @@
     gap: 50px;
 }
 
+#botaoVoltar {
+    width: 30px;
+    height: 30px;
+}
+
 
 .btn-default {
     background-color: #00c3ff;

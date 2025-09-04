@@ -14,12 +14,13 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
-  background-color: #e6f2ff;
+  background-color: #e0f0ff;
   position: relative;
   z-index: 100;
 }
 
 /* === Logo === */
+
 .logo-area {
   display: flex;
   flex-direction: column;
@@ -86,8 +87,8 @@ body {
   align-items: center;
 }
 
-.carrinho {
-  font-size: 1.5rem;
+.botaoCarrinho {
+  font-size: 1.9rem;
   color: #000;
   cursor: pointer;
   position: relative;
@@ -336,6 +337,16 @@ footer {
   font-size: 13px;
   color: #999;
 }
+
+.social-icons {
+  display: flex;
+  justify-content: space-between;
+} 
+
+.iconesRedes {
+  font-size: 20px;
+}
+
 
 /* === Responsividade === */
 @media (max-width: 1200px) {

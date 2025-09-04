@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.css'
 import Home from './pages/Home'
 import Register from './pages/Register'
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
