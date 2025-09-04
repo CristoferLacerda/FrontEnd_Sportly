@@ -1,15 +1,16 @@
 import React from "react";
 import "./style.css";
 import { useNavigate } from 'react-router-dom';
+import * as Images from '../../assets';
 
-import logoSporlty from '../../assets/logo_sportly.png';
-import imgBasqueteSlider from '../../assets/basquete_slider_esportes.png';
-import imgTenisSlider from '../../assets/tenis_slider_esportes.png';
-import imgVoleiSlider from '../../assets/volei_slider_esportes.png';
-import imgHandebolSlider from '../../assets/handebol_slider_esportes.png';
-import imgFutsalSlider from '../../assets/futsal_slider_esportes.png';
-import imgBadmintonSlider from '../../assets/badminton_slider_esportes.png';
-import imgBasquete3x3Slider from '../../assets/basquete3x3_slider_esportes.png';
+// import logoSporlty from '../../assets/logo_sportly.png';
+// import imgBasqueteSlider from '../../assets/basquete_slider_esportes.png';
+// import imgTenisSlider from '../../assets/tenis_slider_esportes.png';
+// import imgVoleiSlider from '../../assets/volei_slider_esportes.png';
+// import imgHandebolSlider from '../../assets/handebol_slider_esportes.png';
+// import imgFutsalSlider from '../../assets/futsal_slider_esportes.png';
+// import imgBadmintonSlider from '../../assets/badminton_slider_esportes.png';
+// import imgBasquete3x3Slider from '../../assets/basquete3x3_slider_esportes.png';
 
 // Atenção: precisa ter o Swiper instalado e importado
 // npm install swiper
@@ -32,7 +33,7 @@ function irParaRegister() {
       <header className="cabecalho">
         <div className="logo-area">
           <a href="#">
-            <img src={logoSporlty} alt="Sportly logo" />
+            <img src={Images.logoSportly} alt="Sportly logo" />
           </a>
         </div>
 
@@ -88,28 +89,28 @@ function irParaRegister() {
 
                 <div className="esporte-card">
                   <div className="esporte-imagem">
-                    <img src={imgBasqueteSlider} alt="Basquete" />
+                    <img src={Images.imgBasqueteSlider} alt="Basquete" />
                   </div>
                   <h3 className="esporte-nome">Basquete</h3>
                 </div>
 
                 <div className="esporte-card">
                   <div className="esporte-imagem">
-                    <img src={imgTenisSlider} alt="Tênis" />
+                    <img src={Images.imgTenisSlider} alt="Tênis" />
                   </div>
                   <h3 className="esporte-nome">Tênis</h3>
                 </div>
 
                 <div className="esporte-card">
                   <div className="esporte-imagem">
-                    <img src={imgVoleiSlider} alt="Vôlei" />
+                    <img src={Images.imgVoleiSlider} alt="Vôlei" />
                   </div>
                   <h3 className="esporte-nome">Vôlei</h3>
                 </div>
 
                 <div className="esporte-card">
                   <div className="esporte-imagem">
-                    <img src={imgHandebolSlider} alt="Handebol" />
+                    <img src={Images.imgHandebolSlider} alt="Handebol" />
                   </div>
                   <h3 className="esporte-nome">Handebol</h3>
                 </div>
@@ -123,30 +124,30 @@ function irParaRegister() {
 
                 <div className="esporte-card">
                   <div className="esporte-imagem">
-                    <img src={imgFutsalSlider} alt="Futsal" />
+                    <img src={Images.imgFutsalSlider} alt="Futsal" />
                   </div>
                   <h3 className="esporte-nome">Futsal</h3>
                 </div>
 
                 <div className="esporte-card">
                   <div className="esporte-imagem">
-                    <img src={imgBadmintonSlider} alt="Badminton" />
+                    <img src={Images.imgBadmintonSlider} alt="Badminton" />
                   </div>
                   <h3 className="esporte-nome">Badminton</h3>
                 </div>
 
                 <div className="esporte-card">
                   <div className="esporte-imagem">
-                    <img src={imgBasquete3x3Slider} alt="Basquete3x3" />
+                    <img src={Images.imgBasquete3x3Slider} alt="Basquete_3x3" />
                   </div>
                   <h3 className="esporte-nome">Basquete 3x3</h3>
                 </div>
 
                 <div className="esporte-card">
                   <div className="esporte-imagem">
-                    <img src="https://placehold.co/300x300" alt="Vôlei" />
+                    <img src={Images.imgTenisDeMesaSlider} alt="Tênis_de_Mesa" />
                   </div>
-                  <h3 className="esporte-nome">Vôlei</h3>
+                  <h3 className="esporte-nome">Tênis de Mesa</h3>
                 </div>
 
               </div>
@@ -170,12 +171,36 @@ function irParaRegister() {
 
                 <div className="produto-card">
                   <div className="produto-imagem">
-                    <img src="https://placehold.co/300x300" alt="Produto" />
+                    <img src={Images.imgRaqueteTenis} alt="Produto" />
                   </div>
                   <div className="produto-info">
-                    <h3>Console PlayStation 5 Slim</h3>
-                    <p className="produto-preco">R$ 3.533,07</p>
-                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <h3>Raquete de Tênis Wilson</h3>
+                    <p className="produto-preco">R$ 899,90</p>
+                    <p className="produto-parcela">5x de R$ 179,98 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src={Images.imgBolaFutebol} alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Bola de Futebol Nike</h3>
+                    <p className="produto-preco">R$ 249,90</p>
+                    <p className="produto-parcela">3x de R$ 83,30 sem juros</p>
+                    <button className="btn-comprar">Comprar</button>
+                  </div>
+                </div>
+
+                <div className="produto-card">
+                  <div className="produto-imagem">
+                    <img src={Images.imgLuvaBoxe} alt="Produto" />
+                  </div>
+                  <div className="produto-info">
+                    <h3>Luvas de Boxe Everlast</h3>
+                    <p className="produto-preco">R$ 199,90</p>
+                    <p className="produto-parcela">2x de R$ 99,95 sem juros</p>
                     <button className="btn-comprar">Comprar</button>
                   </div>
                 </div>
@@ -185,9 +210,9 @@ function irParaRegister() {
                     <img src="https://placehold.co/300x300" alt="Produto" />
                   </div>
                   <div className="produto-info">
-                    <h3>Console PlayStation 5 Slim</h3>
-                    <p className="produto-preco">R$ 3.533,07</p>
-                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
+                    <h3>Colchonete Yoga 1,8m</h3>
+                    <p className="produto-preco">R$ 149,90</p>
+                    <p className="produto-parcela">2x de R$ 74,95 sem juros</p>
                     <button className="btn-comprar">Comprar</button>
                   </div>
                 </div>
@@ -197,33 +222,9 @@ function irParaRegister() {
                     <img src="https://placehold.co/300x300" alt="Produto" />
                   </div>
                   <div className="produto-info">
-                    <h3>Console PlayStation 5 Slim</h3>
-                    <p className="produto-preco">R$ 3.533,07</p>
-                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
-                    <button className="btn-comprar">Comprar</button>
-                  </div>
-                </div>
-
-                <div className="produto-card">
-                  <div className="produto-imagem">
-                    <img src="https://placehold.co/300x300" alt="Produto" />
-                  </div>
-                  <div className="produto-info">
-                    <h3>Console PlayStation 5 Slim</h3>
-                    <p className="produto-preco">R$ 3.533,07</p>
-                    <p className="produto-parcela">10x de R$ 379,90 sem juros</p>
-                    <button className="btn-comprar">Comprar</button>
-                  </div>
-                </div>
-
-                <div className="produto-card">
-                  <div className="produto-imagem">
-                    <img src="https://placehold.co/300x300" alt="Produto" />
-                  </div>
-                  <div className="produto-info">
-                    <h3>Monitor Gamer Curvo</h3>
-                    <p className="produto-preco">R$ 1.899,99</p>
-                    <p className="produto-parcela">10x de R$ 211,11 sem juros</p>
+                    <h3>Halteres Ajustáveis 10kg</h3>
+                    <p className="produto-preco">R$ 499,90</p>
+                    <p className="produto-parcela">5x de R$ 99,98 sem juros</p>
                     <button className="btn-comprar">Comprar</button>
                   </div>
                 </div>
