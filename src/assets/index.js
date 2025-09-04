@@ -17,7 +17,7 @@ import imgColchoneteYoga from './colchonete-yoga_slider_produtos.png';
 
 export {
   // Logo
-
+  //teste 
   logoSportly,
 
   // Esportes
