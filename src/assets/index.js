@@ -14,6 +14,13 @@ import imgRaqueteTenis from '../assets/produtos/raquete-tenis_slider_produtos.pn
 import imgBolaFutebol from '../assets/produtos/bola-futebol_slider_produtos.png';
 import imgLuvaBoxe from '../assets/produtos/luva-boxe_slider_produtos.png';
 import imgColchoneteYoga from '../assets/produtos/colchonete-yoga_slider_produtos.png';
+import imgHalteres from '../assets/produtos/halteres_slider_produtos.png';
+
+import imgBolaBasquete from '../assets/produtos/bola-basquete_slider_produtos.png';
+import imgBolaFutebolAdidas from '../assets/produtos/bola-futebol-adidas_slider_produtos.png';  
+import imgPularCorda from '../assets/produtos/corda-pular_slider_produtos.png';
+import imgHalteres10kg from '../assets/produtos/halteres-10kg_slider_produtos.png';
+import imgLuvaBoxeEverlast from '../assets/produtos/luva-boxe-everlast_slider_produtos.png';
 
 export {
   // Logo
@@ -36,5 +43,12 @@ export {
   imgRaqueteTenis,
   imgBolaFutebol,
   imgLuvaBoxe,
-  imgColchoneteYoga
+  imgColchoneteYoga,
+  imgHalteres,
+
+  imgBolaBasquete,
+  imgBolaFutebolAdidas,
+  imgPularCorda,
+  imgHalteres10kg,
+  imgLuvaBoxeEverlast
 };
