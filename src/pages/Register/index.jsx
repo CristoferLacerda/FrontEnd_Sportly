@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import './style.css'
+import './style.module.css'
 import lixeira from '../../assets/icones/imgLixeira.png.webp'
 import api from '../../services/api'
 import { Link } from "react-router-dom";
