@@ -38,21 +38,31 @@ FrontEnd\_Sportly/
 ## ⚙️ Como Rodar o Projeto
 
 1. Clone este repositório:
-   ```bash
+   
+```Bash
    git clone https://github.com/CristoferLacerda/FrontEnd_Sportly.git
-````
+```
 
 2. Acesse a pasta do projeto:
 
+
+```Bash
    cd FrontEnd_Sportly
+```
 
 3. Instale as dependências:
 
+
+```Bash
    npm install
+```
 
 4. Rode o servidor de desenvolvimento:
 
+
+```Bash
    npm run dev
+```
 
 5. O projeto estará disponível em:
 
