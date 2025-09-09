@@ -1,12 +1,87 @@
-# React + Vite
+# 🏋️ Sportly - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sportly é uma aplicação web voltada para quem deseja **organizar e personalizar rotinas de treino**.  
+Neste repositório está a parte **Frontend**, construída em **React + Vite**, responsável pela interface do usuário.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologias Utilizadas
 
-## Expanding the ESLint configuration
+- [React](https://react.dev/) - Biblioteca para construção de interfaces
+- [Vite](https://vitejs.dev/) - Bundler e servidor de desenvolvimento rápido
+- [JavaScript ES6+](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript) 
+- [CSS3](https://developer.mozilla.org/pt-BR/docs/Web/CSS)
+- [ESLint](https://eslint.org/) - Padronização e qualidade de código
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 📂 Estrutura do Projeto
+
+```
+
+FrontEnd\_Sportly/
+├── public/          # Arquivos estáticos
+├── src/             # Código-fonte (componentes React, páginas, estilos)
+│   ├── assets/      # Imagens, ícones e outros assets
+│   ├── components/  # Componentes reutilizáveis
+│   ├── pages/       # Páginas principais
+│   └── App.jsx      # Componente raiz
+├── index.html       # HTML principal
+├── package.json     # Dependências e scripts
+├── vite.config.js   # Configuração do Vite
+└── README.md        # Este arquivo
+
+````
+
+---
+
+## ⚙️ Como Rodar o Projeto
+
+1. Clone este repositório:
+   
+```Bash
+   git clone https://github.com/CristoferLacerda/FrontEnd_Sportly.git
+```
+
+2. Acesse a pasta do projeto:
+
+
+```Bash
+   cd FrontEnd_Sportly
+```
+
+3. Instale as dependências:
+
+
+```Bash
+   npm install
+```
+
+4. Rode o servidor de desenvolvimento:
+
+
+```Bash
+   npm run dev
+```
+
+5. O projeto estará disponível em:
+
+   http://localhost:5173/
+
+---
+
+## 🖼️ Funcionalidades Principais (Frontend)
+
+* Seleção de modalidades esportivas
+* Listagem de exercícios sugeridos
+* Organização de treinos personalizados
+* Interface responsiva e amigável
+
+---
+
+## 📌 Próximos Passos
+
+* ✅ Integração com o backend (API Sportly)
+* [ ] Melhorar design da interface
+* [ ] Implementar autenticação de usuários
+* [ ] Criar testes unitários e de integração
